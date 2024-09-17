@@ -33,15 +33,19 @@ header p {
 }
 
 header .social-links a {
-    margin: 10px;
+    margin: 5px;
     color: white;
     text-decoration: none;
+    background-color: transparent;
+    padding: 5px 5px;
+    border-radius: 5px;
     font-size: 1.2em;
-    transition: color 0.3s;
+    transition: color 0.3s, background-color 0.3s;
 }
 
 header .social-links a:hover {
-    color: #e0e0e0;
+    background-color: #007bff; /* Blue background on hover */
+    color: white; /* White text color on hover */
 }
 
 header .social-links a i {
@@ -94,15 +98,26 @@ footer {
 footer a {
     color: white;
     text-decoration: none;
-    transition: text-decoration 0.3s;
+    transition: color 0.3s;
 }
 
 footer a:hover {
-    text-decoration: underline;
+    color: #007bff;
 }
 
 html {
     scroll-behavior: smooth;
+}
+
+/* Email Link Styles */
+.email-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.email-link:hover {
+    color: #f3fb05; /* Yellow color on hover */
 }
 
 @media (max-width: 768px) {
