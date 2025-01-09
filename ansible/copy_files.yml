@@ -18,26 +18,42 @@
         mode: '0644'
       with_items: "{{ docker_files }}"
 
+    - name: Create web-content directory
+      ansible.builtin.file:
+        path: "{{ web_content_dir }}"
+        state: directory
+        mode: '0755'
+
     - name: Copy web content files to the ec2 server
       ansible.builtin.copy:
-        src: "{{ master_dir }}/web-content"
-        dest: "{{ web_content_dir }}"
+        src: "{{ master_dir }}/web-content/"
+        dest: "{{ web_content_dir }}/"
         owner: root
         group: root
         mode: '0644'
 
     - name: Set directories permissions to 0755
+      ansible.builtin.find:
+        paths: "{{ web_content_dir }}"
+        file_type: directory
+      register: directories
+
+    - name: Apply 0755 permissions to directories
       ansible.builtin.file:
-        path: "{{ item }}"
+        path: "{{ item.path }}"
         state: directory
         mode: '0755'
-      with_items: "{{ lookup('fileglob', web_content_dir + '/**', wantlist=True) }}"
-      when: item is directory
+      loop: "{{ directories.files }}"
 
     - name: Set file permissions to 0644
+      ansible.builtin.find:
+        paths: "{{ web_content_dir }}"
+        file_type: file
+      register: files
+
+    - name: Apply 0644 permissions to files
       ansible.builtin.file:
-        path: "{{ item }}"
+        path: "{{ item.path }}"
         state: file
         mode: '0644'
-      with_items: "{{ lookup('fileglob', web_content_dir + '/**', wantlist=True) }}"
-      when: item is file
+      loop: "{{ files.files }}"
