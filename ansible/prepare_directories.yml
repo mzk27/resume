@@ -1,0 +1,16 @@
+# prepare_directories.yml
+---
+- name: Prepare Directories for Deployment
+  hosts: ec2
+  become: true
+  vars:
+    node_dir: "/home/ubuntu/resume"
+    web_content_dir: "{{ node_dir }}/web-content"
+  tasks:
+    - name: Create required directories for the deployment
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ node_dir }}"
+        - "{{ web_content_dir }}"

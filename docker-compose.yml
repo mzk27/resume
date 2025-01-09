@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: resume
+    volumes:
+      - /home/ubuntu/resume/web-content:/usr/local/apache2/htdocs
+    networks:
+      - resume_network
+    expose:
+      - 80
+
+networks:
+  resume_network:
+    driver: bridge

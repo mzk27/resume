@@ -1,8 +1,6 @@
-# Base image
-FROM nginx:alpine
+# Dockerfile
+# Use Apache HTTP server as the base image
+FROM httpd:2.4
 
-# Copy static website files to Nginx directory
-COPY . /usr/share/nginx/html
-
-# Expose port
-EXPOSE 80
+# Copy website files to Apache's default directory
+COPY ./ /usr/local/apache2/htdocs/
