@@ -1,7 +1,7 @@
 # deploy_containers.yml
 ---
 - name: Deploy Containers
-  hosts: test
+  hosts: ec2
   become: true
   vars:
     node_dir: "/home/ubuntu/resume"
